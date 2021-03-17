@@ -69,8 +69,17 @@ view: order_items {
   }
 
   dimension: sale_price {
+    description: "Sale price per item, hidden from end users but used in other measures"
+    hidden: yes
     type: number
     sql: ${TABLE}."SALE_PRICE" ;;
+  }
+
+  dimension: sale_price_tiers {
+    description: "Breaks sales price up into different tiers to analyze the distribution of sale price"
+    type: tier
+    tiers: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    sql: ${sale_price} ;;
   }
 
   dimension_group: shipped {
@@ -115,13 +124,15 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: total_sales {
+  measure: total_gross_revenue {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
     filters: [status: "-Returned, -Cancelled"]
     drill_fields: [detail*]
   }
+
+  measure: average_gross_revenue {}
 
   # ----- Sets of fields for drilling ------
   set: detail {
@@ -138,7 +149,7 @@ view: order_items {
   # ---- Sets of fields for aggregate tables -----
   set: sales_calculations {
     fields: [
-      total_sales
+      total_gross_revenue
     ]
   }
 }
