@@ -126,6 +126,7 @@ view: order_items {
   }
 
   measure: total_gross_revenue {
+    label: "Gross Revenue | Total"
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
@@ -133,7 +134,8 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: average_gross_revenue {
+  measure: average_sale_price {
+    label: "Sale Price | Average"
     type: average
     sql: ${sale_price} ;;
     value_format_name: usd
