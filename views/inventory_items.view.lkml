@@ -4,6 +4,8 @@ view: inventory_items {
   drill_fields: [id]
 
   dimension: id {
+    group_label: "IDs"
+    hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}."ID" ;;
@@ -44,11 +46,15 @@ view: inventory_items {
   }
 
   dimension: product_distribution_center_id {
+    group_label: "IDs"
+    hidden: yes
     type: number
     sql: ${TABLE}."PRODUCT_DISTRIBUTION_CENTER_ID" ;;
   }
 
   dimension: product_id {
+    group_label: "IDs"
+    hidden: yes
     type: number
     # hidden: yes
     sql: ${TABLE}."PRODUCT_ID" ;;

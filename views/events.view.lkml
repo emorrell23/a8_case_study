@@ -4,6 +4,8 @@ view: events {
   drill_fields: [id]
 
   dimension: id {
+    group_label: "IDs"
+    hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}."ID" ;;
@@ -90,6 +92,8 @@ view: events {
   }
 
   dimension: user_id {
+    group_label: "IDs"
+    hidden: yes
     type: number
     # hidden: yes
     sql: ${TABLE}."USER_ID" ;;
