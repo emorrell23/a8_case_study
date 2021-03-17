@@ -110,6 +110,11 @@ view: order_items {
     sql: ${TABLE}."USER_ID" ;;
   }
 
+  dimension: has_more_than_one_item_in_order {
+    type: yesno
+    sql: ${dt_total_sales_by_order.number_of_items} > 1 ;;
+  }
+
   ########################################################################################################
   #                                              MEASURES                                                #
   ########################################################################################################
@@ -148,10 +153,8 @@ view: order_items {
     fields: [
       id,
       inventory_items.product_name,
-      inventory_items.id,
       users.last_name,
       users.first_name,
-      users.id
     ]
   }
 
