@@ -6,10 +6,13 @@ view: dt_total_sales_by_order {
     }
     datagroup_trigger: case_studies_default_datagroup
   }
-  dimension: total_sales_by_order {
+
+  dimension: total_sales {
+    view_label: "Total Sales By Order"
     value_format: "$#,##0.00"
     type: number
   }
+
   dimension: order_id {
     primary_key: yes
     type: number
