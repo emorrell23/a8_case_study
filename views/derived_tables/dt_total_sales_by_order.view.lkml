@@ -4,12 +4,14 @@ view: dt_total_sales_by_order {
       column: total_sales {}
       column: order_id {}
     }
+    datagroup_trigger: case_studies_default_datagroup
   }
   dimension: total_sales_by_order {
     value_format: "$#,##0.00"
     type: number
   }
   dimension: order_id {
+    primary_key: yes
     type: number
   }
 }
