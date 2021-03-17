@@ -5,6 +5,7 @@ view: order_items {
 
   dimension: id {
     group_label: "IDs"
+    hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}."ID" ;;
