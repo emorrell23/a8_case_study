@@ -62,6 +62,7 @@ explore: order_items {
   }
 
   join: dt_total_sales_by_order {
+    view_label: "Order Items"
     type: left_outer
     sql_on: ${order_items.order_id} = ${dt_total_sales_by_order.order_id} ;;
     relationship: many_to_one
