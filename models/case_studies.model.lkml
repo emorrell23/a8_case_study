@@ -78,9 +78,9 @@ explore: users {}
 
 # Place in `case_studies` model
 explore: +order_items {
-  aggregate_table: rollup__order_id__users_state {
+  aggregate_table: rollup__users.state__users.city {
     query: {
-      dimensions: [order_id, users.state]
+      dimensions: [users.state, users.city]
       measures: [total_sales]
     }
 
