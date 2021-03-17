@@ -111,6 +111,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
+    filters: [status: "-Returned, -Cancelled"]
     drill_fields: [detail*]
   }
 
