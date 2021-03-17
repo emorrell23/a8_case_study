@@ -79,6 +79,7 @@ view: order_items {
     description: "Breaks sales price up into different tiers to analyze the distribution of sale price"
     type: tier
     tiers: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    style: integer
     sql: ${sale_price} ;;
   }
 
@@ -132,7 +133,13 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: average_gross_revenue {}
+  measure: average_gross_revenue {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    filters: [status: "-Returned, -Cancelled"]
+    drill_fields: [detail*]
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
