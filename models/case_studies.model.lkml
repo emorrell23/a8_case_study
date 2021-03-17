@@ -88,7 +88,7 @@ explore: +order_items {
   aggregate_table: rollup__users.state__users.city {
     query: {
       dimensions: [users.state, users.city]
-      measures: [total_sales]
+      measures: [sales_calculations*]
     }
 
     materialization: {
