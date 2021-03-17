@@ -4,7 +4,7 @@ connection: "snowlooker"
 include: "/views/**/*.view"
 
 datagroup: case_studies_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
@@ -12,7 +12,7 @@ persist_with: case_studies_default_datagroup
 
 explore: distribution_centers {}
 
-explore: etl_jobs {}
+# explore: etl_jobs {}
 
 explore: events {
   join: users {
@@ -71,3 +71,21 @@ explore: products {
 }
 
 explore: users {}
+
+###############################
+#      AGGREGATE TABLES       #
+###############################
+
+# Place in `case_studies` model
+explore: +order_items {
+  aggregate_table: rollup__order_id__users_state {
+    query: {
+      dimensions: [order_id, users.state]
+      measures: [total_sales]
+    }
+
+    materialization: {
+      datagroup_trigger: case_studies_default_datagroup
+    }
+  }
+}

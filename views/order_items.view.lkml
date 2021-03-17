@@ -92,8 +92,25 @@ view: order_items {
     sql: ${TABLE}."USER_ID" ;;
   }
 
-  measure: count {
+  ###################################
+  #            MEASURES             #
+  ###################################
+
+  measure: number_of_items {
     type: count
+    drill_fields: [detail*]
+  }
+
+  measure: number_of_orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
     drill_fields: [detail*]
   }
 
@@ -106,6 +123,13 @@ view: order_items {
       users.last_name,
       users.first_name,
       users.id
+    ]
+  }
+
+  # ---- Sets of fields for aggregate tables -----
+  set: sales_calculations {
+    fields: [
+      total_sales
     ]
   }
 }
