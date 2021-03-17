@@ -20,6 +20,11 @@ view: dt_total_sales_by_order {
     label: "Per Order | Number of Items"
   }
 
+  dimension: has_more_than_one_item_in_order {
+    type: yesno
+    sql: ${number_of_items} > 1 ;;
+  }
+
   dimension: total_gross_revenue {
     hidden: yes
     label: "Per Order | Total Gross Revenue"
@@ -37,7 +42,6 @@ view: dt_total_sales_by_order {
   measure: per_order_average_number_of_items {
     label: "Per Order | Average Number of Items"
     type: average
-    value_format_name: usd
     sql: ${number_of_items} ;;
   }
 }
