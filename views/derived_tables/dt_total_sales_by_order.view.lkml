@@ -15,6 +15,7 @@ view: dt_total_sales_by_order {
 
   dimension: order_id {
     primary_key: yes
+    hidden: yes
     type: number
   }
 }
