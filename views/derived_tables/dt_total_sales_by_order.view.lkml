@@ -8,7 +8,7 @@ view: dt_total_sales_by_order {
   }
 
   dimension: total_sales {
-    view_label: "Total Sales By Order"
+    label: "Total Sales By Order"
     value_format: "$#,##0.00"
     type: number
   }
