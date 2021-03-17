@@ -110,11 +110,6 @@ view: order_items {
     sql: ${TABLE}."USER_ID" ;;
   }
 
-  dimension: has_more_than_one_item_in_order {
-    type: yesno
-    sql: ${dt_total_sales_by_order.number_of_items} > 1 ;;
-  }
-
   ########################################################################################################
   #                                              MEASURES                                                #
   ########################################################################################################
@@ -135,7 +130,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd
-    filters: [status: "-Returned, -Cancelled"]
+    filters: [status: "-Returned,-Cancelled"]
     drill_fields: [detail*]
   }
 
@@ -144,7 +139,7 @@ view: order_items {
     type: average
     sql: ${sale_price} ;;
     value_format_name: usd
-    filters: [status: "-Returned, -Cancelled"]
+    filters: [status: "-Returned,-Cancelled"]
     drill_fields: [detail*]
   }
 
@@ -154,7 +149,7 @@ view: order_items {
       id,
       inventory_items.product_name,
       users.last_name,
-      users.first_name,
+      users.first_name
     ]
   }
 

@@ -5,7 +5,6 @@ view: dt_total_sales_by_order {
       column: number_of_items {}
       column: total_gross_revenue {}
     }
-    datagroup_trigger: case_studies_default_datagroup
   }
 
   dimension: order_id {
@@ -37,11 +36,13 @@ view: dt_total_sales_by_order {
     type: average
     value_format_name: usd
     sql: ${total_gross_revenue} ;;
+    filters: [order_items.status: "-Returned,-Cancelled"]
   }
 
   measure: per_order_average_number_of_items {
     label: "Per Order | Average Number of Items"
     type: average
     sql: ${number_of_items} ;;
+    filters: [order_items.status: "-Returned,-Cancelled"]
   }
 }
