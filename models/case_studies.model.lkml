@@ -60,6 +60,12 @@ explore: order_items {
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
+
+  join: dt_total_sales_by_order {
+    type: left_outer
+    sql_on: ${order_items.order_id} = ${dt_total_sales_by_order.order_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: products {
