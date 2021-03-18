@@ -62,10 +62,10 @@ explore: order_items {
   }
 
   join: dt_total_sales_by_order {
-    view_label: "Order Items"
-    type: left_outer
-    sql_on: ${order_items.order_id} = ${dt_total_sales_by_order.order_id} ;;
-    relationship: many_to_one
+    view_label: "Per Order Derived Table"
+    type: inner
+    sql_on: ${order_items.id} = ${dt_total_sales_by_order.id} ;;
+    relationship: one_to_one
   }
 }
 
