@@ -5,7 +5,7 @@ view: order_items {
 
   dimension: id {
     group_label: "IDs"
-    hidden: yes
+    # hidden: yes
     primary_key: yes
     type: number
     sql: ${TABLE}."ID" ;;
@@ -98,7 +98,10 @@ view: order_items {
   }
 
   dimension: status {
-    type: string
+    description:
+    "Status is defined per item,
+    so one item could be Returned on an order,
+    while the rest remain Completed"
     sql: ${TABLE}."STATUS" ;;
   }
 
@@ -119,9 +122,9 @@ view: order_items {
     drill_fields: [detail*]
   }
 
-  measure: number_of_orders {
-    type: count_distinct
-    sql: ${order_id} ;;
+  measure: items_per_order {
+    type: number
+    sql: count(${order_id}) OVER(PARTITION BY ${order_id}) ;;
     drill_fields: [detail*]
   }
 
@@ -134,6 +137,13 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: total_gross_revenue_per_order {
+    group_label: "Per Order"
+    group_item_label: "Total Gross Revenue"
+    type: number
+    sql: sum(${sale_price}) OVER(PARTITION BY ${order_id}) ;;
+  }
+
   measure: average_sale_price {
     label: "Sale Price | Average"
     type: average
@@ -142,6 +152,23 @@ view: order_items {
     filters: [status: "-Returned,-Cancelled"]
     drill_fields: [detail*]
   }
+
+  ########################################################################################################
+  #                                              DEBUGGING                                               #
+  ########################################################################################################
+
+  # # Checking the number of statuses per order
+  # measure: status_count {
+  #   type: number
+  #   sql: count(${status}) ;;
+  # }
+
+  # # Used to check what the individual items' statuses are within
+  # # an order
+  # measure: status_list {
+  #   type: string
+  #   sql: LISTAGG(${status}, ', ') WITHIN GROUP (ORDER BY ${order_id}) ;;
+  # }
 
   # ----- Sets of fields for drilling ------
   set: detail {
