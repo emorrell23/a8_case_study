@@ -9,11 +9,26 @@ view: order_items {
     sql: ${TABLE}."ID" ;;
     label: "SOMETHING NEW" 
   }
-  dimension: inventory_item_id { type: number  sql: ${TABLE}."INVENTORY_ITEM_ID" ;; }
-  dimension: order_id { type: number  sql: ${TABLE}."ORDER_ID" ;; }
-  dimension: sale_price { type: number  sql: ${TABLE}."SALE_PRICE" ;; }
-  dimension: status { type: string  sql: ${TABLE}."STATUS" ;; }
-  dimension: user_id { type: number  sql: ${TABLE}."USER_ID" ;; } 
+  dimension: inventory_item_id {
+    type: number
+    sql: ${TABLE}."INVENTORY_ITEM_ID" ;; 
+  }
+  dimension: order_id {
+    type: number
+    sql: ${TABLE}."ORDER_ID" ;; 
+  }
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}."SALE_PRICE" ;; 
+  }
+  dimension: status {
+    type: string
+    sql: ${TABLE}."STATUS" ;; 
+  }
+  dimension: user_id {
+    type: number
+    sql: ${TABLE}."USER_ID" ;; 
+  } 
   dimension_group: created {
     type: time
     timeframes: [
@@ -66,7 +81,10 @@ view: order_items {
       ]
     sql: ${TABLE}."SHIPPED_AT" ;; 
   } 
-  measure: count { type: count  drill_fields: [detail*] } 
+  measure: count {
+    type: count
+    drill_fields: [detail*] 
+  } 
   set: detail {  fields: [
       id, 
       inventory_items.product_name, 
